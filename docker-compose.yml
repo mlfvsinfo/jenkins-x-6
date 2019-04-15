@@ -1,0 +1,25 @@
+version: '3'
+services:
+  proxy:
+    build:
+      context: ./apacheProxyServer
+      dockerfile: Dockerfile
+    networks:
+      - frontend
+    ports:
+      - "81:80"
+  hippo:
+    build: ./tomcatServer
+    networks:
+      - backend
+      - frontend
+    ports:
+      - "8081:8080"
+  mysql:
+    image: "mysql"
+    networks:
+      - backend
+      
+networks:
+    frontend:
+    backend:
